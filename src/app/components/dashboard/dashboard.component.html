@@ -1,0 +1,25 @@
+<div id="Board">
+    <!-- speedomterView -->
+    <div id="SubMeters" *ngIf="!ShowListView()">
+        <div *ngFor="let meter of SubMeters; index as i;">
+            <app-speedometer [fontSize]="50" [Data]="meter"></app-speedometer>
+        </div>
+    </div>
+    <!-- ListView -->
+    <div id="ListMeters" *ngIf="ShowListView()">
+        <div id="ListHeaders">
+            <h2>Navn</h2>
+            <h2>Samlet</h2>
+            <h2>Nuværende</h2>
+        </div>
+        <div id="ListScroll">
+            <div *ngFor="let meter of SubMeters; index as i;">
+                <app-meterlist-item [Data]="meter"></app-meterlist-item>
+            </div>
+        </div>
+    </div>
+    <!-- MainMeter -->
+    <div id="MainMeter">
+        <app-speedometer [Data]="MainMeter"></app-speedometer>
+    </div>
+</div>
