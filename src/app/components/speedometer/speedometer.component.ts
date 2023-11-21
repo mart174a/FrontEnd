@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, HostListener, Input, OnInit, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MeterData } from 'src/app/models/MeterData';
 
@@ -19,54 +19,75 @@ interface Tick
 export class SpeedometerComponent
 {
   Ticks : Tick[] = [];
-  @Input() fontSize : number = 110;
+
+  fontSize : number = 110;
+  baseColor : string = "black";
+  activeColor : string = "#0f0";
+  maxColor : string = "#ff2a00";
+
+  tickWidth : number = 1;
+  halfCircleHeight : number = 250;
+
+  @ViewChild("Display") display! : ElementRef;
+  @ViewChild("Circle") circle! : ElementRef;
+
 
   @Input() Data : MeterData = {Name: "Lokale xxx", Current : 0, Accumulated: 999999, Note: "Test Note"};
 
+
+  
   constructor() 
   {
-    // for ( var i = 0; i < 100; i++)
-    // {
-    //   this.Ticks.push({ rotation:3.6 *i, value: i});
-    // }
     for ( var i = 0; i < 61; i++)
     {
       this.Ticks.push({ rotation:4 * i - 120, value: i});
     }
   }
-  
-  GetTickGlowColor() : string
+
+  ngAfterViewInit()
   {
-    var color = "#0f0";
+    this.onResize();
+  }
+
+  @HostListener('window:resize')
+  onResize() {
+      this.fontSize = this.display.nativeElement.offsetWidth * 0.39;
+      var circleHeight = this.circle.nativeElement.offsetHeight;
+      this.tickWidth = circleHeight/100;
+      this.halfCircleHeight = circleHeight/2;
+  }
+  
+  getFontSize(i:number)
+  {
+    return {'font-size': this.fontSize/i + 'px'};
+  }
+    
+  SetTick(tick: Tick, height: number) 
+  {
+    var baseStyles = {
+      'position': 'absolute',
+      'background-color': this.baseColor,
+      'left': '50%',
+      'top': '0',
+      'width': `${this.tickWidth}px`,
+      'height': `${tick.value % 10 === 0 ? 15 : 10}%`,
+      'transform-origin': `0 ${this.halfCircleHeight}px`,
+      'transform': `rotate(${tick.rotation}deg)`
+    };
 
     if(this.Data.Current >= 60)
     {
-      color="#ff2a00"
+      baseStyles['background-color'] = this.maxColor;
+      (baseStyles as any)['box-shadow'] = `0 0 25px ${this.maxColor}, 0 0 50px ${this.maxColor}`;
     }
 
-    return `
-    background-color: ${color};
-    box-shadow: 0 0 25px ${color}, 0 0 50px ${color};
-    `;
-  }
+    else if(tick.value <= this.Data.Current)
+    {
+      baseStyles['background-color'] = this.activeColor;
+      (baseStyles as any)['box-shadow'] = `0 0 25px ${this.activeColor}, 0 0 50px ${this.activeColor}`;
+    }
 
-  SetTick(tick : Tick, height : number) : string
-  {
-    var test = `
-    background-color: #0f0;
-    box-shadow: 0 0 25px #0f0, 0 0 50px #0f0;
-    `;
-    var styleString = `
-    position: absolute;
-    ${tick.value <= this.Data.Current? this.GetTickGlowColor() : "background-color: black;"}
-    left: 50%;
-    width: ${height/100}px;
-    height: ${tick.value % 10 === 0 ? 15 : 10}%;
-    transform-origin: 50% ${height/2}px;
-    transform: rotate(${tick.rotation}deg)
-    `;
-    
-    return styleString;
+    return baseStyles;
   }
 
   HasNote() : boolean

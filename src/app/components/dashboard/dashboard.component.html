@@ -2,7 +2,7 @@
     <!-- speedomterView -->
     <div id="SubMeters" *ngIf="!ShowListView()">
         <div *ngFor="let meter of SubMeters; index as i;">
-            <app-speedometer [fontSize]="50" [Data]="meter"></app-speedometer>
+            <app-speedometer [Data]="meter"></app-speedometer>
         </div>
     </div>
     <!-- ListView -->
