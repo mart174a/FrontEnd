@@ -1,5 +1,5 @@
 <app-sidebar [List]="RoomList" [ActiveId]="CurrentRoomId" (OnClicked)=" SideBarClick($event)"></app-sidebar>
 <app-navbar [Title]="'Lokale ' + Room.Name"></app-navbar>
-<div style="background-color:rgb(17, 17, 17); height: 100vh; width: 100vw; display: flex; justify-content: center; align-items: center;">
+<div id="Container">
     <app-dashboard [MainMeter]="Room" [SubMeters]="Meters"></app-dashboard>
 </div>
