@@ -71,7 +71,7 @@ export class SpeedometerComponent
     return {'height': this.lineHeight + 'px'};
   }
     
-  SetTick(tick: Tick, height: number) 
+  SetTick(tick: Tick) 
   {
     var baseStyles = {
       'position': 'absolute',

@@ -1,16 +1,18 @@
 <div id="Board">
     <!-- speedomterView -->
     <div id="SubMeters" *ngIf="!ShowListView()">
-        <div *ngFor="let meter of SubMeters; index as i;">
+        <div class="SubMeter" *ngFor="let meter of SubMeters; index as i;">
+            <div class="Light"></div>
+            <img class="GraphButton" src="assets\GraphIcon.png" >
             <app-speedometer [Data]="meter"></app-speedometer>
         </div>
     </div>
     <!-- ListView -->
     <div id="ListMeters" *ngIf="ShowListView()">
         <div id="ListHeaders">
-            <h2>Navn</h2>
-            <h2>Samlet</h2>
-            <h2>Nuværende</h2>
+            <h2>NAVN</h2>
+            <h2>SAMLET</h2>
+            <h2>NUVÆRENDE</h2>
         </div>
         <div id="ListScroll">
             <div *ngFor="let meter of SubMeters; index as i;">
@@ -20,6 +22,8 @@
     </div>
     <!-- MainMeter -->
     <div id="MainMeter">
+        <div class="Light"></div>
+        <img class="GraphButton" src="assets\GraphIcon.png" >
         <app-speedometer [Data]="MainMeter"></app-speedometer>
     </div>
 </div>

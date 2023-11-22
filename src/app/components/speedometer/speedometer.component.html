@@ -18,7 +18,7 @@
 <div id="Container">
     <div #Circle id="Circle">
         <div *ngFor="let Tick of Ticks; index as i;"
-        [ngStyle]="SetTick(Tick,Circle.offsetHeight)">
+        [ngStyle]="SetTick(Tick)">
         </div>
     </div>
     <div #Display id="Display">
