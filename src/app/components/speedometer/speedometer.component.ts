@@ -25,6 +25,7 @@ export class SpeedometerComponent
   activeColor : string = "#0f0";
   maxColor : string = "#ff2a00";
 
+  lineHeight : number = 6;
   tickWidth : number = 1;
   halfCircleHeight : number = 250;
 
@@ -51,15 +52,23 @@ export class SpeedometerComponent
 
   @HostListener('window:resize')
   onResize() {
-      this.fontSize = this.display.nativeElement.offsetWidth * 0.39;
-      var circleHeight = this.circle.nativeElement.offsetHeight;
-      this.tickWidth = circleHeight/100;
-      this.halfCircleHeight = circleHeight/2;
+    var circleHeight = this.circle.nativeElement.offsetHeight;
+    var displayWidth = this.display.nativeElement.offsetWidth;
+
+    this.fontSize = Math.round(displayWidth * 0.39);
+    this.tickWidth = Math.round(circleHeight/100);
+    this.halfCircleHeight = Math.round(circleHeight/2);
+    this.lineHeight = Math.round(displayWidth/50);
   }
   
   getFontSize(i:number)
   {
     return {'font-size': this.fontSize/i + 'px'};
+  }
+
+  getLineHeight()
+  {
+    return {'height': this.lineHeight + 'px'};
   }
     
   SetTick(tick: Tick, height: number) 
