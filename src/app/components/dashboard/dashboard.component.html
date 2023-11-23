@@ -2,8 +2,8 @@
     <!-- speedomterView -->
     <div id="SubMeters" *ngIf="!ShowListView()">
         <div class="SubMeter" *ngFor="let meter of SubMeters; index as i;">
-            <div class="Light"></div>
-            <img class="GraphButton" src="assets\GraphIcon.png" >
+            <div tooltip class="Light"></div>
+            <img tooltip tooltipText="Gå til grafer for måleren" class="GraphButton" src="assets\GraphIcon.png" (click)="TestGoToDetails()">
             <app-speedometer [Data]="meter"></app-speedometer>
         </div>
     </div>
@@ -22,8 +22,8 @@
     </div>
     <!-- MainMeter -->
     <div id="MainMeter">
-        <div class="Light"></div>
-        <img class="GraphButton" src="assets\GraphIcon.png" >
+        <div tooltip tooltipText="Tændt" class="Light" ></div>
+        <img tooltip tooltipText="Gå til grafer for måleren" class="GraphButton" src="assets\GraphIcon.png" (click)="TestGoToDetails()">
         <app-speedometer [Data]="MainMeter"></app-speedometer>
     </div>
 </div>

@@ -1,6 +1,7 @@
 import { Component, ElementRef, HostListener, Input, OnInit, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MeterData } from 'src/app/models/MeterData';
+import { TooltipDirective } from 'src/app/directives/tooltip.directive';
 
 
 interface Tick
@@ -12,7 +13,7 @@ interface Tick
 @Component({
   selector: 'app-speedometer',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, TooltipDirective],
   templateUrl: './speedometer.component.html',
   styleUrls: ['./speedometer.component.css']
 })

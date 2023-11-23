@@ -22,7 +22,7 @@
         </div>
     </div>
     <div #Display id="Display">
-        <h2 [ngStyle]="getFontSize(1)">{{Data.Current.toLocaleString()}}</h2>
+        <h2 tooltip tooltipText="Gå til grafer for måleren" [ngStyle]="getFontSize(1)">{{Data.Current.toLocaleString()}}</h2>
         <div [ngStyle]="getLineHeight()"  id="Line"></div>
         <h3 [ngStyle]="getFontSize(4)">{{Data.Accumulated.toLocaleString()}}</h3>
     </div>
